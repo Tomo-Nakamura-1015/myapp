@@ -1,0 +1,7 @@
+<h1>ユーザ一覧</h1>
+<div>
+<% @users.each do |users| %>
+    <p>名前：<%= link_to users.name, user_path(users) %> 
+    メアド：<%= users.email %></p>
+<% end %>
+</div>
