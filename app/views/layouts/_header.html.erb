@@ -1,0 +1,15 @@
+<header>
+<div>
+    <%= link_to "アプリ", root_path %>
+    <nav>
+        <% if logged_in? %>
+        <span>ログイン中：<%= link_to @current_user.name, user_path(@current_user) %></span>
+        <% else %>
+        <%= link_to "ログイン", login_path %>
+        <% end %>
+    <%= link_to "あばうと", about_path %>
+    <%= link_to "ユーザー一覧", users_path %>
+    <%= link_to "ログアウト", logout_path, method: :delete %>
+    </nav>
+</div>
+</header>

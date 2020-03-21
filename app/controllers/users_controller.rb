@@ -15,24 +15,37 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to root_path
+      log_in @user
+      redirect_to @user, notice: "登録完了！ようこそ！"
     else
+      flash[:alert] = "ぴえん"
       render 'new'
     end
   end
 
   def edit
-    
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      redirect_to root_path, notice: "編集完了！"
+    else
+      flash[:alert] = "ぴえん"
+      render :edit
+    end
   end
 
   def destroy
     User.find(params[:id]).destroy
+    flash[:alert] = "ぴえん"
     redirect_to root_path
   end
 
   private
    def user_params
-    params.require(:user).permit(:name, :email)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
    end
 
 end

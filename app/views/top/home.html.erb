@@ -1,4 +1,6 @@
-<h1>Hello,World!!</h1>
-<%= link_to "あばうと", about_path %>
-<%= link_to "サインアップ", signup_path %>
-<%= link_to "ユーザー一覧", users_path %>
+<h1>アプリ</h1>
+<% if logged_in? %>
+    <h2><%= link_to @current_user.name, user_path(@current_user) %></h2>
+<% else %>
+    <h2><%= link_to "新規登録する!", signup_path %></h2>
+<% end %>

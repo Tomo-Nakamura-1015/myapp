@@ -1,1 +1,23 @@
 <h1>編集</h1>
+<%= form_with model: @user, local: true do |f| %>
+    <div>
+    <label>名前</label>
+    <%= f.text_field :name %>
+    </div>
+    <div>
+    <label>メールアドレス</label>
+    <%= f.email_field :email %>
+    </div>
+    <div>
+    <label>パスワード</label>
+    <%= f.password_field :password %>
+    </div>
+    <div>
+        <label>パスワード再入力</label>
+        <%= f.password_field :password_confirmation %>
+    </div>
+    <div>
+        <%= f.submit "送信" %>
+    </div>
+<% end %>
+<div><%= link_to "ホーム", root_path %></div>
