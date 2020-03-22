@@ -1,15 +1,17 @@
-<header>
-<div>
-    <%= link_to "アプリ", root_path %>
+<header class="navbar navbar-fixed-top navbar-inverse">
+<div class="container">
+    <%= link_to "アプリ", root_path, id: "logo"%>
     <nav>
-        <% if logged_in? %>
-        <span>ログイン中：<%= link_to @current_user.name, user_path(@current_user) %></span>
-        <% else %>
-        <%= link_to "ログイン", login_path %>
-        <% end %>
-    <%= link_to "あばうと", about_path %>
-    <%= link_to "ユーザー一覧", users_path %>
-    <%= link_to "ログアウト", logout_path, method: :delete %>
+        <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to "あばうと", about_path %></li>
+            <li><%= link_to "ユーザー一覧", users_path %></li>
+            <li><%= link_to "ログアウト", logout_path, method: :delete %></li>
+            <% if logged_in? %>
+            <li>ログイン中：<%= link_to @current_user.name, user_path(@current_user) %></li>
+            <% else %>
+            <li><%= link_to "ログイン", login_path %></li>
+            <% end %>
+        </ul>
     </nav>
 </div>
 </header>
