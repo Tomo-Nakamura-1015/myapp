@@ -1,6 +1,7 @@
-<h1>アプリ</h1>
+
 <% if logged_in? %>
-    <h2><%= link_to @current_user.name, user_path(@current_user) %></h2>
+    <h2 class="text-center"><%= link_to @current_user.name, user_path(@current_user) %></h2>
 <% else %>
-    <h2><%= link_to "新規登録する!", signup_path %></h2>
+    <%= render 'sessions/new' %>
+    <p class="text-center">新規登録は<%= link_to "こちら", signup_path %></p>
 <% end %>

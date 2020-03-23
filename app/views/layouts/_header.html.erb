@@ -3,13 +3,14 @@
     <%= link_to "アプリ", root_path, id: "logo"%>
     <nav>
         <ul class="nav navbar-nav navbar-right">
-            <li><%= link_to "あばうと", about_path %></li>
-            <li><%= link_to "ユーザー一覧", users_path %></li>
-            <li><%= link_to "ログアウト", logout_path, method: :delete %></li>
+                <li　class="nav-item"><%= link_to "ホーム", root_path %></li>
+                <li　class="nav-item"><%= link_to "あばうと", about_path %></li>
             <% if logged_in? %>
-            <li>ログイン中：<%= link_to @current_user.name, user_path(@current_user) %></li>
-            <% else %>
-            <li><%= link_to "ログイン", login_path %></li>
+                <li　class="nav-item">ログイン中：<%= link_to @current_user.name, user_path(@current_user) %></li>
+                <li　class="nav-item"><%= link_to "ログアウト", logout_path, method: :delete %></li>
+                <li　class="nav-item"><%= link_to "ユーザー一覧", users_path %></li>
+            <%else%>
+                <li　class="nav-item"><%= link_to "新規登録", signup_path %></li>
             <% end %>
         </ul>
     </nav>

@@ -1,18 +1,39 @@
 @import '~bootstrap/scss/bootstrap';
 
+header {
+    background-color: rgb(255, 255, 255);
+    border-top: solid 4px #000000;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+
+body {
+    color: #4c4c4c;
+    background-color: #e4e4e4;
+}
+
 #logo {
     float: left;
     margin-right: 10px;
     font-size: 1.7em;
     color: rgb(0, 0, 0);
-    text-transform: uppercase;
     letter-spacing: -1px;
     padding-top: 9px;
     font-weight: bold;
-  }
+}
   
-  #logo:hover {
+#logo:hover {
     color: rgb(245, 6, 6);
     text-decoration: none;
-  }
-  
+}
+
+#login {
+    width: 90%;
+    margin: 20px auto 30px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.login-item {
+    margin-top: 15px
+}
