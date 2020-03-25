@@ -1,0 +1,6 @@
+<li id="post-<%= post.id %>">
+  <span class="content"><%= post.content %></span>
+  <span class="timestamp">
+    <%= time_ago_in_words(post.created_at) %> 前に投稿
+  </span>
+</li>

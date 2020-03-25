@@ -1,0 +1,14 @@
+<div>
+<h2>最新投稿一覧</h2>
+  <ol>
+    <% @posts.each do |post|%>
+      <li>
+      <span><%= link_to post.user.name, post.user %></span>
+      <span><%= post.content %></span>
+      <span><%= time_ago_in_words(post.created_at) %>に投稿</span>
+      </li>
+    <% end %>
+  </ol>
+  <%= will_paginate @posts, :previous_label => ' &lt 前へ', :next_label => '次へ &gt',
+      renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer%>
+</div>

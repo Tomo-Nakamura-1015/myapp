@@ -1,7 +1,16 @@
 <h1>名前: <%= @user.name %></h1>
-<p>メアド:　<%= @user.email %></p>
+
 <% if current_user?(@user)%>
-    <p><%= link_to "[編集]", edit_user_path(current_user) %></p>
-    <p><%= link_to "[削除]", user_path, method: :delete %></p>
-<% end %>
-<div><%= link_to "ホーム", root_path %></div>
+    <span><%= link_to "[編集]", edit_user_path(current_user) %></span>
+    <span><%= link_to "[削除]", user_path, method: :delete %></span>
+    <% end %>
+    <div>
+        <% if @user.posts.any? %>
+        <h3>投稿 (<%= @user.posts.count %>)</h3>
+        <ol class="posts">
+        <%= render @posts %>
+      </ol>
+      <%= will_paginate @posts, :previous_label => ' &lt 前へ', :next_label => '次へ &gt'  %>
+        <% end %>
+    </div>
+<%= link_to "ホーム", root_path %></div>

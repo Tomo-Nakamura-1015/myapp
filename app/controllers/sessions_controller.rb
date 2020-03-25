@@ -10,7 +10,9 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
 # ヘルパーに定義されたlog_inメソッド
       log_in user
-      redirect_to root_url, notice: "おかえり！"
+#もしチェックボックスの送信結果の値が１ならユーザーを記憶し、そうでないなら忘れる、三項演算子でif文を簡略化
+      params[:session][:remember_me] == '1' ? remember(user) : forget(user)
+      redirect_to user, notice: "おかえり！"
     else
       flash[:alert] = "ぴえん"
       render 'new'
