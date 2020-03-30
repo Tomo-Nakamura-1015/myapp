@@ -1,8 +1,14 @@
+<h2>投稿する</h2>
 <%= form_with model: @post, url: posts_path, local: true do |f| %>
   <div>
   <%= f.text_area :content %>
   </div>
   <div>
+    画像<br>
+    <%= f.file_field :image %>
+  </div>
+  <div>
   <%= f.submit "投稿する", class: "btn btn-primary" %>
   </div>
 <% end %>
+<div><%= link_to "ホーム", root_path %></div>

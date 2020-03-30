@@ -1,14 +1,28 @@
 <div>
-<h2>最新投稿一覧</h2>
+<h1>最新投稿一覧</h1>
   <ol>
     <% @posts.each do |post|%>
       <li>
-      <span><%= link_to post.user.name, post.user %></span>
-      <span><%= post.content %></span>
-      <span><%= time_ago_in_words(post.created_at) %>に投稿</span>
+      <h4>
+        <% if post.user.image? %>
+          <%= image_tag post.user.image.url, :size => '40x40' %>
+        <% else %>
+          <%= image_tag 'default.png', :size => '40x40' %>
+        <% end %>
+          <%= link_to post.user.name, post.user %>
+      </h4>
+      <p><%= post.content %></p>
+      <% if post.image? %>
+        <%= image_tag post.image.url %>
+      <% end %>
+      <% if post.user == current_user %>
+        <p><%= link_to "[投稿を削除する]", post_path(post), method: :delete %></p>
+      <% end %>
+      <p><%= time_ago_in_words(post.created_at) %>に投稿</p>
       </li>
     <% end %>
   </ol>
   <%= will_paginate @posts, :previous_label => ' &lt 前へ', :next_label => '次へ &gt',
       renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer%>
 </div>
+<div><%= link_to "ホーム", root_path %></div>

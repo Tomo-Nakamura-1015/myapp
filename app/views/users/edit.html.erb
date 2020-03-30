@@ -1,20 +1,21 @@
-<h1>編集</h1>
+<h1>プロフィール編集</h1>
 <%= form_with model: @user, local: true do |f| %>
     <div>
-    <label>名前</label>
-    <%= f.text_field :name %>
+        <label>名前</label>
+        <%= f.text_field :name %>
     </div>
     <div>
-    <label>メールアドレス</label>
-    <%= f.email_field :email %>
+        <label>メールアドレス</label>
+        <%= f.email_field :email %>
     </div>
     <div>
-    <label>パスワード</label>
-    <%= f.password_field :password %>
-    </div>
-    <div>
-        <label>パスワード再入力</label>
-        <%= f.password_field :password_confirmation %>
+    画像の変更<br>
+    <% if @user.image? %>
+        <%= image_tag @user.image.url, :size => '128x128' %>
+    <% else %>
+        <%= image_tag 'default.png', :size => '128x128' %>
+    <% end %><br>
+    <%= f.file_field :image %>
     </div>
     <div>
         <%= f.submit "送信", class: "btn btn-primary" %>

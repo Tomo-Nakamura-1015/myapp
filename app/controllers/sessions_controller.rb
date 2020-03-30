@@ -12,9 +12,10 @@ class SessionsController < ApplicationController
       log_in user
 #もしチェックボックスの送信結果の値が１ならユーザーを記憶し、そうでないなら忘れる、三項演算子でif文を簡略化
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-      redirect_to user, notice: "おかえり！"
+      flash[:info] = "おかえり！"
+      redirect_to user
     else
-      flash[:alert] = "ぴえん"
+      flash[:danger] = "ぴえん"
       render 'new'
     end
   end
@@ -22,7 +23,7 @@ class SessionsController < ApplicationController
   def destroy
 # ヘルパーで定義されたlog_outメソッドで削除、logged_in?メソッドでログイン中か確認
     log_out if logged_in?
-    flash[:alert] = "ぴえん"
+    flash[:danger] = "ぴえん"
     redirect_to root_url
   end
 end

@@ -10,13 +10,12 @@
   </head>
 
   <body>
-  <%= render 'layouts/header' %>
-  <% if flash[:notice] %>
-    <p><%= flash[:notice] %></p>
-  <% end %>
-  <% if flash[:alert] %>
-    <p><%= flash[:alert] %></p>
-  <% end %>
+    <%= render 'layouts/header' %>
+    <%= render 'layouts/flash_message' %>
+    <% if logged_in? %>
+      <%= render 'layouts/search_form'%>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>
