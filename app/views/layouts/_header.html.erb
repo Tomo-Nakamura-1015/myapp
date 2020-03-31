@@ -4,13 +4,11 @@
     <nav id="nav">
         <ul class="navbar-nav navbar-right navbar-dark"> 
             <% if logged_in? %>
-                <li　class="nav-item">ログイン中：<%= link_to @current_user.name, user_path(@current_user) %> </li>
                 <li　class="nav-item"><%= link_to "ログアウト", logout_path, method: :delete %></li>
                 <li　class="nav-item"><%= link_to "ユーザー一覧", users_path %></li>
                 <li　class="nav-item"><%= link_to "新規投稿", new_post_path %></li>
                 <li　class="nav-item"><%= link_to "最新投稿一覧", posts_path %></li>
             <%else%>
-                <li　class="nav-item"><%= link_to "あばうと", about_path %></li>
                 <li　class="nav-item"><%= link_to "新規登録", signup_path %></li>
             <% end %>
         </ul>

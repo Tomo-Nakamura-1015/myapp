@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
       redirect_to user
     else
       flash[:danger] = "ぴえん"
-      render 'new'
+      redirect_to root_path
     end
   end
 

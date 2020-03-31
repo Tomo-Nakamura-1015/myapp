@@ -1,0 +1,17 @@
+<% if @user.followings.count != 0 %>
+  <h4><%= "#{@user.name}さんがふぉろーしています(#{@user.followings.count})" %></h4>
+  <% @user.followings.each do |user| %>
+    <div>
+    <span>
+      <% if user.image? %>
+          <%= image_tag user.image.url, :size => '40x40' %>
+      <% else %>
+          <%= image_tag 'default.png', :size => '40x40' %>
+      <% end %>
+    </span>
+    <span><%= link_to user.name, user_path(user) %> </span>
+    </div>
+  <% end %>
+<% else %>
+  <h4>フォローしている人はいません。ぴえん</h4>
+<% end %>

@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
 
-  get 'sessions/new'
+  
   root 'top#home'
+  get 'sessions/new'
   get '/about',      to: 'top#about'
+  get '/contact',    to: 'top#contact'
   get '/signup',     to: 'users#new'
   post '/signup',    to: 'users#create'
   get '/login',      to: 'sessions#new'
@@ -12,8 +14,13 @@ Rails.application.routes.draw do
   get '/followers',  to: 'relationships#followers'
   get '/followings', to: 'relationships#followings'
 
+  resources :users do
+    member do
+     get :following, :followers
+    end
+  end
+
   resources :relationships, only: [:create, :destroy]
-  resources :users
   resources :posts
 
 end

@@ -10,8 +10,8 @@
     <% end %>
     </span>
     <span>名前：<%= link_to user.name, user_path(user) %> </span>
-    <span>フォロー<%= link_to user.followings.count, followings_path %>　
-    フォロワー<%= link_to user.followers.count, followers_path %></span>
+    <span><%= link_to "フォロー：#{user.followings.count}人", following_user_path(user) %>　
+    <%= link_to "フォロワー：#{user.followers.count}人", followers_user_path(user) %></span>
     <span>
     <% unless current_user?(user) %>
         <% if current_user.following?(user) %>
@@ -30,4 +30,3 @@
     </div>
 <% end %>
 </div>
-<div><%= link_to "ホーム", root_path %></div>

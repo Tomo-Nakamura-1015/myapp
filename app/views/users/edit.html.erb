@@ -9,6 +9,10 @@
         <%= f.email_field :email %>
     </div>
     <div>
+        <label>プロフィール編集</label><br>
+        <%= f.text_area :profile %>
+    </div>
+    <div>
     画像の変更<br>
     <% if @user.image? %>
         <%= image_tag @user.image.url, :size => '128x128' %>
@@ -21,4 +25,3 @@
         <%= f.submit "送信", class: "btn btn-primary" %>
     </div>
 <% end %>
-<div><%= link_to "ホーム", root_path %></div>

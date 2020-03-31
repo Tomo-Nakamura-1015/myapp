@@ -1,8 +1,16 @@
 <div>
+  <span>
+  ログイン中：<% if @current_user.image? %>
+  <%= image_tag @current_user.image.url, :size => '40x40' %>
+  <% else %>
+    <%= image_tag 'default.png', :size => '40x40' %>
+  <% end %>
+  <%= link_to @current_user.name, user_path(@current_user) %>
   <%= form_with url: search_path, method: :get, local: true do |f| %>
     <%= f.label :'検索する' %>
     <%= f.text_field :content %>
     <%= f.select :model, [["ユーザー", "user"], ["投稿", "post"]]%>
     <%= f.submit '検索する', class: "btn btn-primary" %>
   <% end %>
+  </span>
 </div>
