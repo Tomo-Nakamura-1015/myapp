@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   
   root 'top#home'
-  get 'sessions/new'
+
   get '/about',      to: 'top#about'
   get '/contact',    to: 'top#contact'
   get '/signup',     to: 'users#new'
@@ -21,6 +21,9 @@ Rails.application.routes.draw do
   end
 
   resources :relationships, only: [:create, :destroy]
-  resources :posts
+
+  resources :posts do
+    resources :likes, only: [:create, :destroy]
+  end
 
 end

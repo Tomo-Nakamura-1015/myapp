@@ -5,9 +5,9 @@
   <% else %>
     <%= image_tag 'default.png', :size => '40x40' %>
   <% end %>
-  <%= link_to post.user.name, post.user %>
+  <%= link_to post.user.name, post.user %>(<%= post.user.unique_name %>)
 </h4>
-<p><%= post.content %></p>
+<p><%= link_to post.content, post_path(post) %></p>
 <% if post.image? %>
   <div><%= image_tag post.image.url %></div>
 <% end %>

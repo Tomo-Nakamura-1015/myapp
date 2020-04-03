@@ -5,7 +5,7 @@
   <% else %>
     <%= image_tag 'default.png', :size => '40x40' %>
   <% end %>
-  <%= link_to @current_user.name, user_path(@current_user) %>
+  <%= link_to @current_user.name, user_path(@current_user) %>（<%= @current_user.unique_name %>）
   <%= form_with url: search_path, method: :get, local: true do |f| %>
     <%= f.label :'検索する' %>
     <%= f.text_field :content %>

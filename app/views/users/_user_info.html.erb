@@ -1,0 +1,21 @@
+<h1>名前: <%= @user.name %></h1>
+<p>(<%= @user.unique_name %>)</p>
+<div>
+<% if @user.image? %>
+    <%= image_tag @user.image.url, :size => '128x128' %>
+<% else %>
+    <%= image_tag 'default.png', :size => '128x128' %>
+<% end %>
+<span><%= @user.profile %></span>
+</div>
+<div>
+<span><%= link_to "フォロー：#{@user.followings.count}人", following_user_path(@user) %>　
+    <%= link_to "フォロワー：#{@user.followers.count}人", followers_user_path(@user) %></span>
+<span><%= render 'relationships/follow_button', user: @user %></span>
+</div>
+
+<% if current_user?(@user)%>
+  <span><%= link_to "[プロフィール編集]", edit_user_path(@user) %></span>
+  <span><%= link_to "[ユーザー削除]", user_path(@user), method: :delete %></span>
+  <%= render 'posts/new_form' %>
+<% end %>

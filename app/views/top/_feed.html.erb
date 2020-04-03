@@ -1,0 +1,9 @@
+<% if @feed_items.any? %>
+<h3>タイムライン</h3>
+  <ol>
+    <%= render @feed_items %>
+  </ol>
+  <%= will_paginate @feed_items %>
+<% else %>
+<h4>投稿はありません。</h4>
+<% end %>

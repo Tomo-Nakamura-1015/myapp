@@ -1,29 +1,33 @@
-<h1>名前: <%= @user.name %></h1>
-<div>
-<% if @user.image? %>
-    <%= image_tag @user.image.url, :size => '128x128' %>
-<% else %>
-    <%= image_tag 'default.png', :size => '128x128' %>
-<% end %>
-<span><%= @user.profile %></span>
-</div>
-<div>
-<span><%= link_to "フォロー：#{@user.followings.count}人", following_user_path(@user) %>　
-    <%= link_to "フォロワー：#{@user.followers.count}人", followers_user_path(@user) %></span>
-<span><%= render 'relationships/follow_button', user: @user %></span>
-</div>
-
-<% if current_user?(@user)%>
-    <span><%= link_to "[編集]", edit_user_path(@user) %></span>
-    <span><%= link_to "[削除]", user_path, method: :delete %></span>
-    <% end %>
-    <div>
+<%= render 'users/user_info'%>
+<div class="row">
+    <div class="col-md-6">
         <% if @user.posts.any? %>
-        <h3>投稿 (<%= @user.posts.count %>)</h3>
+        <h3><%= "#{@user.name}さんの投稿 (#{@user.posts.count})" %></h3>
         <ol class="posts">
-          <%= render @posts %>
+            <%= render @posts %>
         </ol>
         <%= will_paginate @posts, :previous_label => ' &lt 前へ', :next_label => '次へ &gt',
             renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer%>
         <% end %>
     </div>
+    <div class="col-md-6">
+        <h3><%= @user.name %>さんのいいねしている投稿</h3>
+        <ol>
+            <% @user.liked_posts.each do |post| %>
+                <li>
+                <% if post.user.image? %>
+                    <%= image_tag post.user.image.url, :size => '40x40' %>
+                <% else %>
+                    <%= image_tag 'default.png', :size => '40x40' %>
+                <% end %>
+                <%= link_to post.user.name, post.user %>(<%= post.user.unique_name %>)
+                <p><%= link_to post.content, post_path(post) %></p>
+                <% if post.image? %>
+                    <%= image_tag post.image.url %>
+                <% end %>
+                <p><%= time_ago_in_words(post.created_at) %>に投稿</p>
+                </li>
+            <% end %>
+        </ol>
+    </div>
+</div>

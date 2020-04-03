@@ -1,0 +1,27 @@
+<h1>投稿詳細ページ</h1>
+<h4>
+  <% if @post.user.image? %>
+    <%= image_tag @post.user.image.url, :size => '40x40' %>
+  <% else %>
+    <%= image_tag 'default.png', :size => '40x40' %>
+  <% end %>
+    <%= link_to @post.user.name, @post.user %>
+</h4>
+<p><%= @post.content %></p>
+<% if @post.image? %>
+  <%= image_tag @post.image.url %>
+<% end %>
+<p>いいね件数: <%= @post.likes.count %></p>
+<% if current_user.already_liked?(@post) %>
+  <%= button_to 'いいねを取り消す', post_like_path(@post), method: :delete %>
+<% else %>
+  <%= button_to 'いいね', post_likes_path(@post) %>
+<% end %>
+<% if @post.user == current_user %>
+  <p><%= link_to "[投稿を削除する]", post_path(@post), method: :delete %></p>
+<% end %>
+  <p><%= time_ago_in_words(@post.created_at) %>に投稿</p>
+<h5>いいねしたユーザー(<%= @post.liked_users.count %>)</h5>
+<% @post.liked_users.each do |user| %>
+  <li><%= link_to user.name, user_path(user) %></li>
+<% end %>

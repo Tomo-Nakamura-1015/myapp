@@ -18,11 +18,18 @@ class User < ApplicationRecord
      #架空のfollowersクラス
     has_many :followers, through: :reverse_of_relationships, source: :user, dependent: :destroy
 
+    has_many :likes, dependent: :destroy
+    # 「liked_posts」によってuserがどの投稿をいいねしているのか取得できるようになる
+    has_many :liked_posts, through: :likes, source: :post
+
     #仮想の属性の作成
     attr_accessor :remember_token
 
-    validates :name,   presence: true, length: { maximum: 50 }
+    VALID_UNIQUE_NAME_REGEX = /\A[a-z0-9_]+\z/i
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+    validates :name,   presence: true, length: { maximum: 50 }
+    validates :unique_name, presence: true, length: { in: 5..15 }, format: { with: VALID_UNIQUE_NAME_REGEX },
+                            uniqueness: { case_sensitive: false }
     validates :email,  presence: true, length: { maximum: 255 }, uniqueness: { case_sensitive: false },
                        format: { with: VALID_EMAIL_REGEX }
     #セキュアにハッシュ化したパスワードをpassword_digestに保存、仮想のpassword属性が自動で作成される
@@ -65,15 +72,21 @@ class User < ApplicationRecord
         end
     end
 
-    #フォロー解除のメソッド
+    #フォロー解除
     def unfollow(other_user)
         relationship = self.relationships.find_by(follow_id: other_user.id)
         relationship.destroy if relationship
     end
 
-    #
     def following?(other_user)
         self.followings.include?(other_user)
     end
+
+    # ユーザーが投稿に対して、すでにいいねをしているのかどうかを判定する
+    def already_liked?(post)
+        self.likes.exists?(post_id: post.id)
+    end
+
+    private
 
 end

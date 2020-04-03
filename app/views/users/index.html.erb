@@ -9,9 +9,9 @@
         <%= image_tag 'default.png', :size => '40x40' %>
     <% end %>
     </span>
-    <span>名前：<%= link_to user.name, user_path(user) %> </span>
-    <span><%= link_to "フォロー：#{user.followings.count}人", following_user_path(user) %>　
-    <%= link_to "フォロワー：#{user.followers.count}人", followers_user_path(user) %></span>
+    <h5>名前：<%= link_to user.name, user_path(user) %>（<%= user.unique_name %>）</h5>
+    <%= link_to "フォロー：#{user.followings.count}人", following_user_path(user) %>
+    <%= link_to "フォロワー：#{user.followers.count}人", followers_user_path(user) %>
     <span>
     <% unless current_user?(user) %>
         <% if current_user.following?(user) %>
