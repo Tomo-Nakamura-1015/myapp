@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_03_112355) do
+ActiveRecord::Schema.define(version: 2020_04_04_102405) do
 
   create_table "likes", force: :cascade do |t|
     t.integer "post_id", null: false
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2020_04_03_112355) do
     t.string "image"
     t.text "profile"
     t.string "unique_name"
+    t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["unique_name"], name: "index_users_on_unique_name", unique: true
   end

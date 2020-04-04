@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:edit, :destroy, :update, :index, :show]
   before_action :correct_user,   only: [:edit, :update]
+  before_action :admin_user,     only: :destroy
 
   def index
     @users = User.all
@@ -20,7 +21,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       log_in @user
-      redirect_to @user, success: "登録完了！ようこそ！"
+      flash[:success] = "登録完了！ようこそ！"
+      redirect_to @user
     else
       flash[:danger] = "ぴえん"
       render 'new'
@@ -43,7 +45,7 @@ class UsersController < ApplicationController
   def destroy
     User.find(params[:id]).destroy
     flash[:danger] = "ぴえん"
-    redirect_to root_path
+    redirect_to users_path
   end
 
   def following
@@ -68,4 +70,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     redirect_to(root_url) unless @user == current_user
   end
+
+  def admin_user
+    redirect_to(root_url) unless current_user.admin?
+  end
+
 end

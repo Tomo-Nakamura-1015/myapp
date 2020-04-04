@@ -9,7 +9,12 @@
         <%= image_tag 'default.png', :size => '40x40' %>
     <% end %>
     </span>
-    <h5>名前：<%= link_to user.name, user_path(user) %>（<%= user.unique_name %>）</h5>
+    <h5>名前：<%= link_to user.name, user_path(user) %>（<%= user.unique_name %>）
+    <% if current_user.admin? && !current_user?(user) %>
+    ｜　管理者権限：<%= link_to "[ユーザ削除]", user, method: :delete,
+                                  data: { confirm: "本当に削除しちゃう？" } %>
+    <% end %>
+    </h5>
     <%= link_to "フォロー：#{user.followings.count}人", following_user_path(user) %>
     <%= link_to "フォロワー：#{user.followers.count}人", followers_user_path(user) %>
     <span>
