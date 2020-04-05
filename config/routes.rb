@@ -1,10 +1,8 @@
 Rails.application.routes.draw do
 
-  
-  root 'top#home'
-
   get '/about',      to: 'top#about'
-  get '/contact',    to: 'top#contact'
+  get '/contact',   to: 'contacts#new'
+  post '/contact',   to: 'contacts#create'
   get '/signup',     to: 'users#new'
   post '/signup',    to: 'users#create'
   get '/login',      to: 'sessions#new'
@@ -13,6 +11,8 @@ Rails.application.routes.draw do
   get '/search',     to: 'search#search'
   get '/followers',  to: 'relationships#followers'
   get '/followings', to: 'relationships#followings'
+
+  root 'top#home'
 
   resources :users do
     member do
