@@ -13,6 +13,8 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @like = Like.new
+    @comment = Comment.new
+    @comments = @post.comments
   end
 
   def create
@@ -31,7 +33,7 @@ class PostsController < ApplicationController
     end
     if @post.save
       flash[:success] = "投稿完了！"
-      redirect_to root_path
+      redirect_to post_path(@post)
     else
       @feed_items = []
       flash[:danger] = "ぴえん"

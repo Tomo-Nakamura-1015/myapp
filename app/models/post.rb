@@ -1,9 +1,10 @@
 class Post < ApplicationRecord
   mount_uploader :image, ImageUploader
   belongs_to :user
-  has_many :likes
+  has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
   #「liked_users」によって投稿が誰にいいねされているのか取得できるようになる
-  has_many :liked_users, through: :likes, source: :user
+  has_many :liked_users, through: :likes, source: :user, dependent: :destroy
 
   default_scope -> { order(created_at: :desc) } #ラムダ式、降順にする
   validates :user_id, presence: true

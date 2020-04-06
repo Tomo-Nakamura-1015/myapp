@@ -5,6 +5,7 @@ class TopController < ApplicationController
     @user = current_user
     @post  = @user.posts.new
     @feed_items = @user.feed.paginate(page: params[:page])
+    @like = Like.new
     end
   end
 

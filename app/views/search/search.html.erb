@@ -19,7 +19,7 @@
 <% elsif @posts %>
   <% @posts.each do |post| %>
     <ul>
-    <%= render post %>
+    <li><%= render post %></li>
     </ul>
   <% end %>
   <%= will_paginate @posts, :previous_label => ' &lt 前へ', :next_label => '次へ &gt',

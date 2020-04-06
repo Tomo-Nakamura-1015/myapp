@@ -1,26 +1,8 @@
 <div>
 <h1>最新投稿一覧</h1>
   <ol>
-    <% @posts.each do |post|%>
-      <li>
-      <h4>
-        <% if post.user.image? %>
-          <%= image_tag post.user.image.url, :size => '40x40' %>
-        <% else %>
-          <%= image_tag 'default.png', :size => '40x40' %>
-        <% end %>
-          <%= link_to post.user.name, post.user %>（<%= post.user.unique_name %>）
-      </h4>
-      <p><%= link_to post.content, post_path(post) %></p>
-      <% if post.image? %>
-        <%= image_tag post.image.url %>
-      <% end %>
-      <p>いいね件数: <%= post.likes.count %>　
-      <% if post.user == current_user %>
-        <%= link_to "[投稿を削除する]", post_path(post), method: :delete %></p>
-      <% end %>
-      <p><%= time_ago_in_words(post.created_at) %>に投稿</p>
-      </li>
+    <% @posts.each do |post| %>
+      <%= render 'posts/post', post: post %>
     <% end %>
   </ol>
   <%= will_paginate @posts, :previous_label => ' &lt 前へ', :next_label => '次へ &gt',

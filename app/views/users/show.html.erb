@@ -25,7 +25,10 @@
                 <% if post.image? %>
                     <%= image_tag post.image.url %>
                 <% end %>
-                <p><%= time_ago_in_words(post.created_at) %>に投稿</p>
+                <p>
+                    いいね: <%= post.likes.count %>　コメント：<%= post.comments.count %>　
+                    <%= time_ago_in_words(post.created_at) %>に投稿
+                </p>
                 </li>
             <% end %>
         </ol>

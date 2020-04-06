@@ -2,7 +2,8 @@ class User < ApplicationRecord
     mount_uploader :image, ImageUploader
     before_save { self.email = email.downcase }
 
-    has_many :posts, dependent: :destroy #ユーザが削除されると一緒にpostも削除される
+    has_many :posts, dependent: :destroy
+    has_many :comments, dependent: :destroy
     has_many :relationships, dependent: :destroy
 
     #架空のfollowingクラス(モデル)を作成、throughで中間テーブルはrelationshipsと設定
@@ -80,11 +81,6 @@ class User < ApplicationRecord
 
     def following?(other_user)
         self.followings.include?(other_user)
-    end
-
-    # ユーザーが投稿に対して、すでにいいねをしているのかどうかを判定する
-    def already_liked?(post)
-        self.likes.exists?(post_id: post.id)
     end
 
     private

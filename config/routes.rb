@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  root 'top#home'
+
   get '/about',      to: 'top#about'
   get '/contact',   to: 'contacts#new'
   post '/contact',   to: 'contacts#create'
@@ -12,8 +14,6 @@ Rails.application.routes.draw do
   get '/followers',  to: 'relationships#followers'
   get '/followings', to: 'relationships#followings'
 
-  root 'top#home'
-
   resources :users do
     member do
      get :following, :followers
@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 
   resources :posts do
     resources :likes, only: [:create, :destroy]
+    resources :comments, only: [:create, :destroy]
   end
 
 end
