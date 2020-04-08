@@ -1,20 +1,20 @@
 <h1>新規登録</h1>
 <%= form_with model: @user, local: true do |f| %>
     <div>
-    <label>名前</label>
-    <%= f.text_field :name %>
+        <label>名前</label>
+        <%= f.text_field :name %>
     </div>
     <div>
-    <label>ID</label>
-    <%= f.text_field :unique_name %>
+        <label>ID</label>
+        <%= f.text_field :unique_name %>
     </div>
     <div>
-    <label>メールアドレス</label>
-    <%= f.text_field :email %>
+        <label>メールアドレス</label>
+        <%= f.text_field :email %>
     </div>
     <div>
-    <label>パスワード</label>
-    <%= f.password_field :password %>
+        <label>パスワード</label>
+        <%= f.password_field :password %>
     </div>
     <div>
         <label>パスワード再入力</label>
@@ -25,8 +25,8 @@
         <%= f.text_area :profile %>
     </div>
     <div>
-    <label>プロフィール画像の設定</label>
-    <%= f.file_field :image %>
+        <label>プロフィール画像の設定</label>
+        <%= f.file_field :image %>
     </div>
     <div>
     <%= f.submit "登録", class: "btn btn-primary" %>

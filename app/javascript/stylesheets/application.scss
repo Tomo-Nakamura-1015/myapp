@@ -39,6 +39,34 @@ body {
     margin-top: 15px
 }
 
+.search_bar {
+  border-bottom: solid 1px #000000;
+  margin-bottom: 10px;
+}
+
+.search_name {
+  padding: 15px 0 0 15px;
+}
+
+.search_form {
+  padding: 15px 15px 0 0;
+}
+
+.info_user_name {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.info_image {
+  float: left;
+  padding-left: 15px;
+  padding-right: 5px
+}
+
+.info_follow {
+  background-color: #000000;
+}
+
 footer {
     margin-top: 50px;
     padding: 15px 5px 10px 10px;

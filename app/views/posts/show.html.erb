@@ -11,12 +11,7 @@
 <% if @post.image? %>
   <%= image_tag @post.image.url %>
 <% end %>
-
-<% if current_user.already_liked?(@post) %>
-  <%= button_to 'いいねを取り消す', post_like_path(@post), method: :delete%>
-<% else %>
-  <%= button_to 'いいね', post_likes_path(@post) %>
-<% end %>
+<%= render 'likes/like_button', post: @post %>
 <% if @post.user == current_user %>
   <p><%= link_to "[投稿を削除する]", post_path(@post), method: :delete %></p>
 <% end %>

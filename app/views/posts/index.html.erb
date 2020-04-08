@@ -1,10 +1,8 @@
 <div>
-<h1>最新投稿一覧</h1>
+  <h1>最新投稿一覧</h1>
   <ol>
-    <% @posts.each do |post| %>
-      <%= render 'posts/post', post: post %>
-    <% end %>
-  </ol>
+    <%= render @posts %>
+    </ol>
   <%= will_paginate @posts, :previous_label => ' &lt 前へ', :next_label => '次へ &gt',
-      renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer%>
+      renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer %>
 </div>

@@ -6,6 +6,7 @@ class PostsController < ApplicationController
   end
 
   def index
+    @post  = current_user.posts.build
     @posts = Post.paginate(page: params[:page], per_page: 5)
     @like = Like.new
   end

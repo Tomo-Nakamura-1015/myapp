@@ -10,14 +10,14 @@ class Post < ApplicationRecord
   validates :user_id, presence: true
   validates :content, presence: true, length: { maximum: 140 }
 
-  # Micropostsテーブルから、下記のいずれか条件の投稿を取得する
-  #   自分がフォローしている人
-  #   自分のポスト
-  #   返信先が自分になっているポスト
-  # def Post.including_replies(user_id)
-  #     Post.where("user_id IN (:followings_ids)
-  #               OR user_id     =   :user_id
-  #               OR in_reply_to =   :user_id",
-  #               followings_ids: followings_ids, user_id: user_id)
-  # end
+   # マイクロポストをいいねする
+   def like(user)
+    likes.create(user_id: user.id)
+  end
+
+  # マイクロポストのいいねを解除する
+  def unlike(user)
+    likes.find_by(user_id: user.id).destroy
+  end
+
 end

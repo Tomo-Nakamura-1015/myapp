@@ -1,19 +1,23 @@
-<h1>名前: <%= @user.name %></h1>
-<p>(<%= @user.unique_name %>)</p>
-<div>
-    <% if @user.image? %>
-        <%= image_tag @user.image.url, :size => '128x128' %>
-    <% else %>
-        <%= image_tag 'default.png', :size => '128x128' %>
-    <% end %>
-    <span><%= @user.profile %></span>
+<div class="row">
+    <div class="info_image">
+        <% if @user.image? %>
+            <%= image_tag @user.image.url, :size => '128x128' %>
+        <% else %>
+            <%= image_tag 'default.png', :size => '128x128' %>
+        <% end %>
+    </div>
+    <div class="info_name">
+        <span class="info_user_name"><%= @user.name %></span>
+        <span>(<%= @user.unique_name %>)</span>
+        <span><%= render 'relationships/follow_button', user: @user %></span>
+        <p><%= @user.profile %></p>
+    </div>
 </div>
-<div>
-    <span>
+<div class="info_follow">
+    <p>
         <%= link_to "フォロー：#{@user.followings.count}人", following_user_path(@user) %>　
         <%= link_to "フォロワー：#{@user.followers.count}人", followers_user_path(@user) %>
-    </span>
-    <span><%= render 'relationships/follow_button', user: @user %></span>
+    </p>
 </div>
 
 <% if current_user?(@user)%>
