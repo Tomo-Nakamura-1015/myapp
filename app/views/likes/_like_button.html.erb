@@ -3,13 +3,13 @@
         <div><%= f.hidden_field :post_id, value: post.id %>
         <%= f.hidden_field :user_id, value: current_user.id %>
         </div>
-        <%= f.submit "いいね解除", class: "btn btn-primary" %>
+        <%= f.submit "いいね解除", class: "btn btn-danger btn-sm" %>
       <% end %>
     <% else %>
       <%= form_with model: @like, local: true, url: post_likes_path(post) do |f| %>
         <div><%= f.hidden_field :post_id, value: post.id %>
         <%= f.hidden_field :user_id, value: current_user.id %>
         </div>
-        <%= f.submit "いいね", class: "btn btn-primary" %>
+        <%= f.submit "いいね", class: "btn btn-primary btn-sm" %>
       <% end %>
     <% end %>

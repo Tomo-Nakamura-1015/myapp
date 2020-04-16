@@ -1,7 +1,10 @@
 
 <% if logged_in? %>
   <%= render 'users/user_info'%>
-  <%= render @feed_items %>
+  <div>
+    <h4>たいむライン</h4>
+    <%= render @feed_items %>
+  </div>
 <% else %>
     <%= render 'sessions/new' %>
     <p class="text-center">新規登録は<%= link_to "こちら", signup_path %></p>

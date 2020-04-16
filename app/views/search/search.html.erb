@@ -1,8 +1,7 @@
 <div>
 <% if @users %>
   <% @users.each do |user| %>
-    <ul>
-      <li>
+      <li class="mb-2">
         <span>
           <% if user.image? %>
               <%= image_tag user.image.url, :size => '40x40' %>
@@ -10,17 +9,14 @@
               <%= image_tag 'default.png', :size => '40x40' %>
           <% end %>
         </span>
-        <span><%= link_to user.name, user_path(user) %></span>
+        <span><%= link_to user.name, user_path(user), class: "h5" %></span>
       </li>
-    </ul>
     <%= will_paginate @users, :previous_label => ' &lt 前へ', :next_label => '次へ &gt',
             renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer%>
   <% end %>
 <% elsif @posts %>
   <% @posts.each do |post| %>
-    <ul>
-    <li><%= render post %></li>
-    </ul>
+    <%= render post %>
   <% end %>
   <%= will_paginate @posts, :previous_label => ' &lt 前へ', :next_label => '次へ &gt',
             renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer%>

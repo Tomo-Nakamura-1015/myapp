@@ -1,16 +1,17 @@
-<header class="navbar navbar-fixed-top">
+<header class="navbar">
 <div class="container">
     <%= link_to "アプリ", root_path, id: "logo"%>
     <nav id="nav">
         <ul class="navbar-nav navbar-right navbar-dark"> 
             <% if logged_in? %>
-                <li　class="nav-item"><%= link_to "ログアウト", logout_path, method: :delete %></li>
-                <li　class="nav-item"><%= link_to "ユーザー一覧", users_path %></li>
-                <li　class="nav-item"><%= link_to "最新投稿一覧", posts_path %></li>
+                <li　class="nav-item"><%= link_to "ログアウト", logout_path, method: :delete, class: "text-dark" %></li>
+                <li　class="nav-item"><%= link_to "ユーザー一覧", users_path, class: "text-dark"  %></li>
+                <li　class="nav-item"><%= link_to "最新投稿一覧", posts_path, class: "text-dark"  %></li>
             <%else%>
-                <li　class="nav-item"><%= link_to "新規登録", signup_path %></li>
+                <li　class="nav-item"><%= link_to "新規登録", signup_path, class: "text-dark"  %></li>
             <% end %>
         </ul>
     </nav>
 </div>
+
 </header>

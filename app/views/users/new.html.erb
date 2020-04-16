@@ -1,34 +1,36 @@
-<h1>新規登録</h1>
+<div id="login">
+<h1 class="text-center" >新規登録</h1>
 <%= form_with model: @user, local: true do |f| %>
-    <div>
+    <div class="form-group">
         <label>名前</label>
-        <%= f.text_field :name %>
+        <%= f.text_field :name, class: "form-control" %>
     </div>
-    <div>
+    <div class="form-group">
         <label>ID</label>
-        <%= f.text_field :unique_name %>
+        <%= f.text_field :unique_name, class: "form-control" %>
     </div>
-    <div>
+    <div class="form-group">
         <label>メールアドレス</label>
-        <%= f.text_field :email %>
+        <%= f.text_field :email, class: "form-control" %>
     </div>
-    <div>
+    <div class="form-group">
         <label>パスワード</label>
-        <%= f.password_field :password %>
+        <%= f.password_field :password, class: "form-control" %>
     </div>
-    <div>
+    <div class="form-group">
         <label>パスワード再入力</label>
-        <%= f.password_field :password_confirmation %>
+        <%= f.password_field :password_confirmation, class: "form-control" %>
     </div>
-    <div>
+    <div class="form-group">
         <label>プロフィール文</label><br>
-        <%= f.text_area :profile %>
+        <%= f.text_area :profile, class: "form-control" %>
     </div>
     <div>
-        <label>プロフィール画像の設定</label>
+        <label>プロフィール画像の設定</label><br>
         <%= f.file_field :image %>
     </div>
-    <div>
-    <%= f.submit "登録", class: "btn btn-primary" %>
+    <div class="text-center mt-2">
+    <%= f.submit "登録する", class: "btn btn-primary w-50" %>
     </div>
 <% end %>
+</div>

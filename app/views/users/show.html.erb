@@ -1,57 +1,73 @@
-<%= render 'users/user_info'%>
+<div>
+    <%= render 'users/user_info'%>
+</div>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6 mt-2 pt-2 border-top border-dark">
         <% if @user.posts.any? %>
-            <h3><%= "#{@user.name}さんの投稿 (#{@user.posts.count})" %></h3>
-                <% @user.posts.each do |post| %>
-                    <li>
-                        <h4>
-                            <% if post.user.image? %>
-                            <%= image_tag post.user.image.url, :size => '40x40' %>
-                            <% else %>
-                            <%= image_tag 'default.png', :size => '40x40' %>
-                            <% end %>
-                            <%= link_to post.user.name, post.user %>（<%= post.user.unique_name %>）
-                        </h4>
-                        <p><%= link_to post.content, post_path(post) %></p>
+            <h4 class="text-center" ><%= "#{@user.name}さんの投稿 (#{@user.posts.count})" %></h4>
+            <% @user.posts.each do |post| %>
+                <li class="post_item">
+                    <div>
+                        <% if post.user.image? %>
+                        <%= image_tag post.user.image.url, :size => '40x40' %>
+                        <% else %>
+                        <%= image_tag 'default.png', :size => '40x40' %>
+                        <% end %>
+                        <%= link_to post.user.name, post.user, class: "text-dark h4" %>（<%= post.user.unique_name %>）
+                    </div>
+
+                    <div class="ml-3 mt-2" >
+                        <p><%= link_to post.content, post_path(post), class: "text-dark" %></p>
                         <% if post.image? %>
-                            <%= image_tag post.image.url %>
+                        <%= image_tag post.image.url %>
                         <% end %>
-                        <%= render 'likes/like_button', post: post %>
+                    </div>
+                    <%= render 'likes/like_button', post: post%>
+                    <div>
                         <% if post.user == current_user %>
-                            <p><%= link_to "[投稿を削除する]", post_path(post), method: :delete %></p>
+                        <%= link_to "[投稿を削除する]", post_path(post), method: :delete %><br>
                         <% end %>
-                        <p>いいね: <%= post.likes.count %>　コメント：<%= post.comments.count %>　
-                        <%= time_ago_in_words(post.created_at) %>に投稿</p>
-                    </li>
-                <% end %>
-        <% end %>
-    </div>
-    <div class="col-md-6">
-        <h3><%= @user.name %>さんのいいねしている投稿</h3>
-        <ol>
-            <% @user.liked_posts.each do |post| %>
-                <li>
-                <% if post.user.image? %>
-                    <%= image_tag post.user.image.url, :size => '40x40' %>
-                <% else %>
-                    <%= image_tag 'default.png', :size => '40x40' %>
-                <% end %>
-                <%= link_to post.user.name, post.user %>(<%= post.user.unique_name %>)
-                <p><%= link_to post.content, post_path(post) %></p>
-                <% if post.image? %>
-                    <%= image_tag post.image.url %>
-                <% end %>
-                <%= render 'likes/like_button', post: post %>
-                <% if post.user == current_user %>
-                    <p><%= link_to "[投稿を削除する]", post_path(post), method: :delete %></p>
-                <% end %>
-                <p>
-                    いいね: <%= post.likes.count %>　コメント：<%= post.comments.count %>　
-                    <%= time_ago_in_words(post.created_at) %>に投稿
-                </p>
+                        いいね: <%= post.likes.count %>　コメント：<%= post.comments.count %>　
+                        <%= time_ago_in_words(post.created_at) %>前に投稿
+                    </div>
                 </li>
             <% end %>
-        </ol>
+        <% else %>
+            <p class="text-center" >投稿はありません</p>
+        <% end %>
+    </div>
+    <div class="col-md-6 mt-2 pt-2 border-top border-dark">
+        <h4 class="text-center"><%= @user.name %>さんのしたいいね(<%= @user.likes.count %>)</h4>
+        <% if @user.liked_posts.any? %>
+            <% @user.liked_posts.each do |post| %>
+                <li class="post_item">
+                    <div>
+                        <% if post.user.image? %>
+                        <%= image_tag post.user.image.url, :size => '40x40' %>
+                        <% else %>
+                        <%= image_tag 'default.png', :size => '40x40' %>
+                        <% end %>
+                        <%= link_to post.user.name, post.user, class: "text-dark h4" %>（<%= post.user.unique_name %>）
+                    </div>
+
+                    <div class="ml-3 mt-2" >
+                        <p><%= link_to post.content, post_path(post), class: "text-dark" %></p>
+                        <% if post.image? %>
+                        <%= image_tag post.image.url %>
+                        <% end %>
+                    </div>
+                    <%= render 'likes/like_button', post: post%>
+                    <div>
+                        <% if post.user == current_user %>
+                        <%= link_to "[投稿を削除する]", post_path(post), method: :delete %><br>
+                        <% end %>
+                        いいね: <%= post.likes.count %>　コメント：<%= post.comments.count %>　
+                        <%= time_ago_in_words(post.created_at) %>前に投稿
+                    </div>
+                </li>
+            <% end %>
+        <% else %>
+            <p class="text-center" >いいねした投稿はありません</p>
+        <% end %>
     </div>
 </div>

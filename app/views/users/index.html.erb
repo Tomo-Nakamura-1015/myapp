@@ -1,37 +1,48 @@
 <h1>ユーザ一覧</h1>
 <div>
-<% @users.each do |user| %>
-    <div>
-    <span>
-    <% if user.image? %>
-        <%= image_tag user.image.url, :size => '40x40' %>
-    <% else %>
-        <%= image_tag 'default.png', :size => '40x40' %>
+    <% @users.each do |user| %>
+        <li class="post_item">
+            <div>
+                <p>
+                    <% if user.image? %>
+                        <%= image_tag user.image.url, :size => '40x40' %>
+                    <% else %>
+                        <%= image_tag 'default.png', :size => '40x40' %>
+                    <% end %>
+                    <%= link_to user.name, user_path(user), class: "h4" %>（
+                    <% if current_user.admin? && !current_user?(user) %>
+                        <%= user.unique_name %>
+                    <% else %>
+                        管理者
+                    <% end %>
+                    ）
+                    <% if current_user.admin? && !current_user?(user) %>
+                    ｜　管理者権限：<%= link_to "[ユーザ削除]", user, method: :delete,
+                                                data: { confirm: "本当に削除しちゃう？" } %>
+                    <% end %>
+                </p>
+                <p><%= user.profile %></p>
+                <span>
+                    <%= link_to "フォロー：#{user.followings.count}人", following_user_path(user) %>
+                    <%= link_to "フォロワー：#{user.followers.count}人", followers_user_path(user) %>
+                </span>
+                <% unless current_user?(user) %>
+                    <% if current_user.following?(user) %>
+                        <%= form_for(current_user.relationships.find_by(follow_id: user.id), html: { method: :delete }) do |f| %>
+                            <%= f.hidden_field :follow_id, value: user.id %>
+                            <%= f.submit 'フォロー解除', class: "btn btn-danger btn-sm" %>
+                        <% end %>
+                    <% else %>
+                        <%= form_for(current_user.relationships.build) do |f| %>
+                            <%= f.hidden_field :follow_id, value: user.id %>
+                            <%= f.submit 'フォローする', class: "btn btn-primary btn-sm" %>
+                        <% end %>
+                    <% end %>
+                <% end %>
+                </span>
+            </div>
+        </li>
+        <%= will_paginate @users, :previous_label => ' &lt 前へ', :next_label => '次へ &gt',
+        renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer %>
     <% end %>
-    </span>
-    <h5>名前：<%= link_to user.name, user_path(user) %>（<%= user.unique_name %>）
-    <% if current_user.admin? && !current_user?(user) %>
-    ｜　管理者権限：<%= link_to "[ユーザ削除]", user, method: :delete,
-                                  data: { confirm: "本当に削除しちゃう？" } %>
-    <% end %>
-    </h5>
-    <%= link_to "フォロー：#{user.followings.count}人", following_user_path(user) %>
-    <%= link_to "フォロワー：#{user.followers.count}人", followers_user_path(user) %>
-    <span>
-    <% unless current_user?(user) %>
-        <% if current_user.following?(user) %>
-            <%= form_for(current_user.relationships.find_by(follow_id: user.id), html: { method: :delete }) do |f| %>
-                <%= f.hidden_field :follow_id, value: user.id %>
-                <%= f.submit 'フォロー解除', class: 'btn btn-danger' %>
-            <% end %>
-        <% else %>
-            <%= form_for(current_user.relationships.build) do |f| %>
-                <%= f.hidden_field :follow_id, value: user.id %>
-                <%= f.submit 'フォローする', class: 'btn btn-primary' %>
-            <% end %>
-        <% end %>
-    <% end %>
-    </span>
-    </div>
-<% end %>
 </div>

@@ -1,19 +1,25 @@
-<li>
-  <h4>
+<li class="post_item">
+  <div>
     <% if post.user.image? %>
       <%= image_tag post.user.image.url, :size => '40x40' %>
     <% else %>
       <%= image_tag 'default.png', :size => '40x40' %>
     <% end %>
-      <%= link_to post.user.name, post.user %>（<%= post.user.unique_name %>）
-  </h4>
-  <p><%= link_to post.content, post_path(post) %></p>
-  <% if post.image? %>
-    <%= image_tag post.image.url %>
-  <% end %>
-  <% if post.user == current_user %>
-    <p><%= link_to "[投稿を削除する]", post_path(post), method: :delete %></p>
-  <% end %>
-  <p>いいね: <%= post.likes.count %>　コメント：<%= post.comments.count %>　
-  <%= time_ago_in_words(post.created_at) %>に投稿</p>
+      <%= link_to post.user.name, post.user, class: "text-dark h4" %>（<%= post.user.unique_name %>）
+  </div>
+
+  <div class="ml-3 mt-2" >
+    <p><%= link_to post.content, post_path(post), class: "text-dark" %></p>
+    <% if post.image? %>
+      <%= image_tag post.image.url %>
+    <% end %>
+  </div>
+
+  <div>
+    <% if post.user == current_user %>
+      <%= link_to "[投稿を削除する]", post_path(post), method: :delete %><br>
+    <% end %>
+    いいね: <%= post.likes.count %>　コメント：<%= post.comments.count %>　
+    <%= time_ago_in_words(post.created_at) %>前に投稿
+  </div>
 </li>
